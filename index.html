@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <style>
+      @-webkit-keyframes beat {
+          0% {-webkit-transform: scale(1) rotate(225deg); -webkit-box-shadow:0 0 40px rgba(213,9,60,1);}
+          50% {-webkit-transform: scale(1.1) rotate(225deg); -webkit-box-shadow:0 0 70px rgba(213,9,60,0.6);}
+          100% {-webkit-transform: scale(1) rotate(225deg); -webkit-box-shadow:0 0 40px rgba(213,9,60,1);}
+      }
+      @-moz-keyframes beat {
+          0% {-moz-transform: scale(1) rotate(225deg); -moz-box-shadow:0 0 40px rgba(213,9,60,1);}
+          50% {-moz-transform: scale(1.1) rotate(225deg); -moz-box-shadow:0 0 70px rgba(213,9,60,0.6);}
+          100% {-moz-transform: scale(1) rotate(225deg); -moz-box-shadow:0 0 40px rgba(213,9,60,1);}
+      }
+      @keyframes beat {
+          0% {transform: scale(1) rotate(225deg); box-shadow:0 0 40px #d5093c;}
+          50% {transform: scale(1.1) rotate(225deg); box-shadow:0 0 70px #d5093c;}
+          100% {transform: scale(1) rotate(225deg); box-shadow:0 0 40px #d5093c;}
+      }
+
+      #background {
+          position:fixed;
+          top:0;
+          left:0;
+          z-index:-1;
+          width:100%;
+          height:100%;
+          background: #ffa5a5;
+          background: -moz-linear-gradient(top,  #ffa5a5 0%, #ffd3d3 100%);
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa5a5), color-stop(100%,#ffd3d3));
+          background: -webkit-linear-gradient(top,  #ffa5a5 0%,#ffd3d3 100%);
+          background: linear-gradient(top,  #ffa5a5 0%,#ffd3d3 100%);
+      }
+      #chest {
+          position:relative;
+          width:500px;
+          height:450px;
+          /*margin-top: 50px;*/
+          margin:0 auto;
+      }
+      .heart {
+          position:absolute;
+          z-index:2;
+          background: -moz-linear-gradient(-180deg,  #F50A45 0%, #d5093c 40%);
+          background: -webkit-gradient(linear, right 50%, left 50%, color-stop(0%,#F50A45), color-stop(40%,#d5093c));
+          background: -webkit-linear-gradient(-180deg,  #F50A45 0%,#d5093c 40%);
+          background: linear-gradient(-180deg,  #F50A45 0%,#d5093c 40%);
+          -webkit-animation: beat 0.7s ease 0s infinite normal;
+          -moz-animation: beat 0.7s ease 0s infinite normal;
+          animation: beat 0.7s ease 0s infinite normal;
+      }
+      .heart.center {
+          background: -moz-linear-gradient(-45deg,  #B80734 0%, #d5093c 40%);
+          background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#B80734), color-stop(40%,#d5093c));
+          background: -webkit-linear-gradient(-45deg,  #B80734 0%,#d5093c 40%);
+          background: linear-gradient(-45deg,  #B80734 0%,#d5093c 40%);
+      }
+      .heart.top {
+          z-index:3;
+      }
+      .side {
+          top:50px;
+          width:220px;
+          height:220px;
+          -moz-border-radius: 220px;
+          -webkit-border-radius: 220px;
+          border-radius: 220px;
+      }
+      .center {
+          width:210px;
+          height:210px;
+          bottom:100px;
+          left:145px;
+          font-size:0;
+          text-indent:-9999px;
+      }
+      .left {
+          left:62px;
+      }
+      .right {
+          right:62px;
+      }
+      h1{
+        font-family: 'Kaushan Script', cursive;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="background"></div>
+    <div style="float:left; width:100%">
+      <h1 style="text-align: center" id='insert_name'></h1>
+      <div id="chest">
+        <div class="heart left side top"></div>
+        <div class="heart center">&hearts;</div>
+        <div class="heart right side"></div>
+      </div>
+    </div>
+
+    <script>
+      ////////////////////////////////////////////////////////////////
+      // Javascript made by Rasmus - http://www.peters1.dk //
+      ////////////////////////////////////////////////////////////////
+
+      var SNOW_Picture = "heart9.gif"
+      var SNOW_no = 15;
+
+      var SNOW_browser_IE_NS = (document.body.clientHeight) ? 1 : 0;
+      var SNOW_browser_MOZ = (self.innerWidth) ? 1 : 0;
+      var SNOW_browser_IE7 = (document.documentElement.clientHeight) ? 1 : 0;
+
+      var SNOW_Time;
+      var SNOW_dx, SNOW_xp, SNOW_yp;
+      var SNOW_am, SNOW_stx, SNOW_sty; 
+      var i, SNOW_Browser_Width, SNOW_Browser_Height;
+
+      if (SNOW_browser_IE_NS)
+      {
+        SNOW_Browser_Width = document.body.clientWidth;
+        SNOW_Browser_Height = document.body.clientHeight;
+      }
+      else if (SNOW_browser_MOZ)
+      {
+        SNOW_Browser_Width = self.innerWidth - 20;
+        SNOW_Browser_Height = self.innerHeight;
+      }
+      else if (SNOW_browser_IE7)
+      {
+        SNOW_Browser_Width = document.documentElement.clientWidth;
+        SNOW_Browser_Height = document.documentElement.clientHeight;
+      }
+
+      SNOW_dx = new Array();
+      SNOW_xp = new Array();
+      SNOW_yp = new Array();
+      SNOW_am = new Array();
+      SNOW_stx = new Array();
+      SNOW_sty = new Array();
+
+      for (i = 0; i < SNOW_no; ++ i)
+      {
+        SNOW_dx[i] = 0;
+        SNOW_xp[i] = Math.random()*(SNOW_Browser_Width-50);
+        SNOW_yp[i] = Math.random()*SNOW_Browser_Height;
+        SNOW_am[i] = Math.random()*20;
+        SNOW_stx[i] = 0.02 + Math.random()/10;
+        SNOW_sty[i] = 0.7 + Math.random();
+        if (i == 0) document.write("<\div id=\"SNOW_flake"+ i +"\" style=\"position: absolute; z-index: "+ i +"; visibility: visible; top: 15px; left: 15px;\"><\img src=\""+SNOW_Picture+"\" border=\"0\"></a><\/div>");
+        else document.write("<\div id=\"SNOW_flake"+ i +"\" style=\"position: absolute; z-index: "+ i +"; visibility: visible; top: 15px; left: 15px;\"><\img src=\""+SNOW_Picture+"\" border=\"0\"><\/div>");
+      }
+
+      function SNOW_Weather()
+      {
+
+      for (i = 0; i < SNOW_no; ++ i)
+      {
+        SNOW_yp[i] += SNOW_sty[i];
+
+        if (SNOW_yp[i] > SNOW_Browser_Height-50)
+        {
+          SNOW_xp[i] = Math.random()*(SNOW_Browser_Width-SNOW_am[i]-30);
+          SNOW_yp[i] = 0;
+          SNOW_stx[i] = 0.02 + Math.random()/10;
+          SNOW_sty[i] = 0.7 + Math.random();
+        }
+
+        SNOW_dx[i] += SNOW_stx[i];
+
+        document.getElementById("SNOW_flake"+i).style.top=SNOW_yp[i]+"px";
+        document.getElementById("SNOW_flake"+i).style.left=SNOW_xp[i] + SNOW_am[i]*Math.sin(SNOW_dx[i])+"px";
+      }
+
+      SNOW_Time = setTimeout("SNOW_Weather()", 10);
+
+      }
+
+      SNOW_Weather();
+
+      var hash = window.location.hash;
+      var message;
+      if (hash){
+        hash = hash.slice(1);
+        message = "Have a 'Lovely' Valintine's Day, " + hash;
+      }else{
+        message = "Have a 'Lovely' Valintine's Day"
+      }
+
+      var place = document.getElementById("insert_name")
+      place.innerHTML=message;
+    </script>
+    <audio loop autoplay>
+      <source src="music.ogg" type="audio/ogg" />
+    </audio>
+  </body>
+</html>
